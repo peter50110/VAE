@@ -20,7 +20,7 @@ def sampling(encoder_net, x):
 def ELBO_loss(x, x_pred, z_mean, z_logvar):
     batch_size = tf.shape(x)[0]
     
-    squares = 0.5 * tf.reduce_sum(tf.square(x_pred - x)) / tf.cast(batch_size, tf.float32)
+    squares = 0.5 * tf.reduce_sum(tf.square(x_pred - x)) / tf.cast(batch_size, tf.int32)
     reconstruction_loss = tf.reduce_sum(squares)
 
     kl = -0.5 * tf.reduce_sum(1 + z_logvar - tf.square(z_mean) - tf.exp(z_logvar))
