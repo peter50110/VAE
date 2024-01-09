@@ -38,7 +38,7 @@ def ELBO_loss(x, x_pred, z_mean, z_logvar):
 
 from tensorflow.keras.layers import LSTM
 
-def build_encoder_decoder(seq_size, num_hidden_units, latent_dim):
+def build_encoder_decoder(seq_size, num_hidden_units, latent_dim, dropout_rate=0.5):
     # Encoder
     encoder_model = Sequential(name='encoder')
     encoder_model.add(Input(shape=(seq_size,)))
