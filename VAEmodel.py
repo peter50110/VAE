@@ -36,10 +36,12 @@ def ELBO_loss(x, x_pred, z_mean, z_logvar):
 
     return elbo, reconstruction_loss, beta
 
+from tensorflow.keras.layers import LSTM
+
 def build_encoder_decoder(seq_size, num_hidden_units, latent_dim, dropout_rate=0.5):
     # Encoder
     encoder_model = Sequential(name='encoder')
-    encoder_model.add(Input(shape=(seq_size,1)))
+    encoder_model.add(Input(shape=(seq_size, 1)))  # Adjust the input shape
     encoder_model.add(Activation('tanh'))
     encoder_model.add(Dense(num_hidden_units, name='fc1'))
     encoder_model.add(BatchNormalization())
@@ -62,6 +64,7 @@ def build_encoder_decoder(seq_size, num_hidden_units, latent_dim, dropout_rate=0
     decoder_model.add(LSTM(num_hidden_units, return_sequences=True))
 
     return encoder_model, decoder_model
+
 
 #Example test:
 # Specify the input sizes
