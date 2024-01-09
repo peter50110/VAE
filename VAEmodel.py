@@ -73,7 +73,7 @@ def build_encoder_decoder(seq_size, num_hidden_units, latent_dim, dropout_rate=0
 #Example test:
 # Specify the input sizes
 seq_size = 512 # Set the sequence size
-num_hidden_units =64  # Set the number of hidden units
+num_hidden_units =96  # Set the number of hidden units
 latent_dim = 40 # Set the latent dimension
 
 
