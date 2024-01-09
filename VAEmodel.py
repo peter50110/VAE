@@ -41,7 +41,7 @@ from tensorflow.keras.layers import LSTM
 def build_encoder_decoder(seq_size, num_hidden_units, latent_dim, dropout_rate=0.5):
     # Encoder
     encoder_model = Sequential(name='encoder')
-    encoder_model.add(Input(shape=(seq_size,)))
+    encoder_model.add(Input(shape=reshape(None, seq_size,1)))
     # Uncomment the line below if you want to use Bidirectional LSTM
     encoder_model.add(Bidirectional(LSTM(num_hidden_units, return_sequences=True)))
     encoder_model.add(Activation('tanh'))
@@ -73,7 +73,7 @@ def build_encoder_decoder(seq_size, num_hidden_units, latent_dim, dropout_rate=0
 #Example test:
 # Specify the input sizes
 seq_size = 512 # Set the sequence size
-num_hidden_units =96  # Set the number of hidden units
+num_hidden_units =64  # Set the number of hidden units
 latent_dim = 40 # Set the latent dimension
 
 
