@@ -40,38 +40,26 @@ def build_encoder_decoder(seq_size, num_hidden_units, latent_dim, dropout_rate=0
     # Encoder
     encoder_model = Sequential(name='encoder')
     encoder_model.add(Input(shape=(seq_size,)))
-    # Uncomment the line below if you want to use Bidirectional LSTM
-    # encoder_model.add(Bidirectional(LSTM(2, return_sequences=True)))
     encoder_model.add(Activation('tanh'))
     encoder_model.add(Dense(num_hidden_units, name='fc1'))
     encoder_model.add(BatchNormalization())
     encoder_model.add(Activation('tanh'))
     encoder_model.add(Dropout(dropout_rate))
     
-    # Add LSTM layer
+    # Add LSTM layer to the encoder
     encoder_model.add(LSTM(num_hidden_units, return_sequences=True))
-    encoder_model.add(Dense(num_hidden_units*2, name='fc2'))
-    encoder_model.add(BatchNormalization())
-    encoder_model.add(Dropout(dropout_rate))
-    encoder_model.add(Dense(2 * latent_dim, name='fc_encoder'))
 
     # Decoder
     decoder_model = Sequential(name='decoder')
     decoder_model.add(Input(shape=(latent_dim,)))
-    # Uncomment the line below if you want to use Bidirectional LSTM
-    # decoder_model.add(Bidirectional(LSTM(2, return_sequences=True)))
     decoder_model.add(Activation('tanh'))
     decoder_model.add(Dense(num_hidden_units, name='fc_1'))
     decoder_model.add(BatchNormalization())
     decoder_model.add(Activation('tanh'))
     decoder_model.add(Dropout(dropout_rate))
-    
-    # Add LSTM layer
+
+    # Add LSTM layer to the decoder
     decoder_model.add(LSTM(num_hidden_units, return_sequences=True))
-    decoder_model.add(Dense(num_hidden_units*2, name='fc_2'))
-    decoder_model.add(BatchNormalization())
-    decoder_model.add(Dropout(dropout_rate))
-    decoder_model.add(Dense(seq_size, name='fc_decoder'))
 
     return encoder_model, decoder_model
 
