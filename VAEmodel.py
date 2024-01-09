@@ -48,8 +48,6 @@ def build_encoder_decoder(seq_size, num_hidden_units, latent_dim, dropout_rate=0
     encoder_model.add(Activation('tanh'))
     encoder_model.add(Dropout(dropout_rate))
     
-    # Add LSTM layer to the encoder
-    encoder_model.add(LSTM(num_hidden_units, return_sequences=True))
 
     # Decoder
     decoder_model = Sequential(name='decoder')
@@ -60,8 +58,6 @@ def build_encoder_decoder(seq_size, num_hidden_units, latent_dim, dropout_rate=0
     decoder_model.add(Activation('tanh'))
     decoder_model.add(Dropout(dropout_rate))
 
-    # Add LSTM layer to the decoder
-    decoder_model.add(LSTM(num_hidden_units, return_sequences=True))
 
     return encoder_model, decoder_model
 
