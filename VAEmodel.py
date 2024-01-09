@@ -36,7 +36,7 @@ def ELBO_loss(x, x_pred, z_mean, z_logvar):
 
     return elbo, reconstruction_loss, beta
 
-def build_encoder_decoder(seq_size, num_hidden_units, latent_dim):
+def build_encoder_decoder(seq_size, num_hidden_units, latent_dim, dropout_rate=0.5):
     # Encoder
     encoder_model = Sequential(name='encoder')
     encoder_model.add(Input(shape=(seq_size,)))
@@ -44,9 +44,12 @@ def build_encoder_decoder(seq_size, num_hidden_units, latent_dim):
     # encoder_model.add(Bidirectional(LSTM(num_hidden_units, return_sequences=True)))
     encoder_model.add(Activation('tanh'))
     encoder_model.add(Dense(num_hidden_units, name='fc1'))
+    encoder_model.add(BatchNormalization())
     encoder_model.add(Activation('tanh'))
+    encoder_model.add(Dropout(dropout_rate))
     encoder_model.add(Dense(num_hidden_units*2, name='fc2'))
     encoder_model.add(BatchNormalization())
+    encoder_model.add(Dropout(dropout_rate))
     encoder_model.add(Dense(2 * latent_dim, name='fc_encoder'))
 
     # Decoder
@@ -56,9 +59,12 @@ def build_encoder_decoder(seq_size, num_hidden_units, latent_dim):
     # decoder_model.add(Bidirectional(LSTM(num_hidden_units, return_sequences=True)))
     decoder_model.add(Activation('tanh'))
     decoder_model.add(Dense(num_hidden_units, name='fc_1'))
+    decoder_model.add(BatchNormalization())
     decoder_model.add(Activation('tanh'))
+    decoder_model.add(Dropout(dropout_rate))
     decoder_model.add(Dense(num_hidden_units*2, name='fc_2'))
     decoder_model.add(BatchNormalization())
+    decoder_model.add(Dropout(dropout_rate))
     decoder_model.add(Dense(seq_size, name='fc_decoder'))
 
     return encoder_model, decoder_model
