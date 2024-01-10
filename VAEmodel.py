@@ -43,7 +43,7 @@ def build_encoder_decoder(seq_size, num_hidden_units, latent_dim, dropout_rate=0
     encoder_model = Sequential(name='encoder')
     encoder_model.add(Input(shape=(None, seq_size,1)))
     # Uncomment the line below if you want to use Bidirectional LSTM
-    encoder_model.add(Bidirectional(LSTM(num_hidden_units, return_sequences=True)))
+    # encoder_model.add(Bidirectional(LSTM(num_hidden_units, return_sequences=True)))
     encoder_model.add(Activation('tanh'))
     encoder_model.add(Dense(num_hidden_units, name='fc1'))
     encoder_model.add(Activation('tanh'))
@@ -57,7 +57,7 @@ def build_encoder_decoder(seq_size, num_hidden_units, latent_dim, dropout_rate=0
     decoder_model = Sequential(name='decoder')
     decoder_model.add(Input(shape=(latent_dim,)))
     # Uncomment the line below if you want to use Bidirectional LSTM
-    decoder_model.add(Bidirectional(LSTM(num_hidden_units, return_sequences=True)))
+    # decoder_model.add(Bidirectional(LSTM(num_hidden_units, return_sequences=True)))
     decoder_model.add(Activation('tanh'))
     decoder_model.add(Dense(num_hidden_units, name='fc_1'))
     decoder_model.add(Activation('tanh'))
