@@ -1,5 +1,5 @@
 from keras.models import Sequential, Model
-from keras.layers import Input, LSTM, Dense, Bidirectional, Dropout, Activation
+from keras.layers import Input, LSTM, Dense, Bidirectional, Dropout, Activation, BatchNormalization
 import tensorflow as tf
 from keras.optimizers import Adam
 
@@ -36,6 +36,8 @@ def ELBO_loss(x, x_pred, z_mean, z_logvar):
 
     return elbo, reconstruction_loss, beta
 
+from tensorflow.keras.layers import LSTM
+
 def build_encoder_decoder(seq_size, num_hidden_units, latent_dim):
     # Encoder
     encoder_model = Sequential(name='encoder')
@@ -60,6 +62,8 @@ def build_encoder_decoder(seq_size, num_hidden_units, latent_dim):
     decoder_model.add(Dense(seq_size, name='fc_decoder'))
 
     return encoder_model, decoder_model
+
+
 
 #Example test:
 # Specify the input sizes
